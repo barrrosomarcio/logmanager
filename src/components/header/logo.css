@@ -11,6 +11,9 @@
 .header img {
   height: 50px;
 }
+.header h1 {
+  color: #036b52;
+}
 .nav {
   display: flex;
   align-items: center;
