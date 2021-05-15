@@ -1,0 +1,68 @@
+body {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.login {
+  height: 300px;
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  box-sizing:content-box;
+  border: 2px solid #6c757d;
+  border-radius: 5px;
+}
+.banner {
+  height: 300px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: #6c757d;
+}
+.form{
+  height: 300px;
+  width: 250px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: white;
+}
+.form label {
+  display: flex;
+  flex-direction: column;
+  width: max-content;
+  font-weight: bold;
+}
+.codenation {
+  width: 210px;
+}
+.ciandt {
+  height: 50px;
+}
+.trybe {
+  height: 60px;
+}
+.loginbtn {
+  font-weight: bold;
+  border-radius: 5px;
+  height: 30px;
+  background-color: #ed1941;
+  border: 2px solid transparent;
+  color: white;
+  transition: all .5s ease;
+}
+.loginbtn:hover {
+  background-color: white;
+  color: #ed1941;
+  border:2px solid #ed1941;
+}
+.javabugs {
+  width: 210px;
+}
