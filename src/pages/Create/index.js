@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Switch } from 'react-router';
-import '../Login/login.css'
+import Header from '../../components/header';
+import './create.css';
 
 const Create = () => {
   const [description, setDescription] = useState('');
@@ -24,6 +25,7 @@ const Create = () => {
   
   return(
     <div className="login">
+      <Header title="JavaBugs" nav={true}/>
       <form className="form">
       <label>
         Descrição :
