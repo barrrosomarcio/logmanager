@@ -3,6 +3,7 @@ import Header from '../../components/header';
 import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
 import erros from './data';
+import './list.css';
 
 const FilterPage = () => {
   const ZERO = 0;
@@ -30,7 +31,7 @@ const FilterPage = () => {
     );
   }
   return (
-    <div>
+    <div className="list-page">
       <Header title="JavaBugs" nav={ true }/>
       <Filter
         filters={ Object.keys(data[0]) } //array com os tipos de filtro

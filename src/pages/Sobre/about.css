@@ -1,10 +1,24 @@
+.about{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: space-between;
+}
+.header {
+  box-shadow: 0 3px 5px rgba(57, 63, 72, 0.3);
+  z-index: 1;
+}
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
   width: 100vw;
-  height: 85vh;
+  height: 80vh;
+  background-color: white;
+  z-index: 10000;
 }
 .title {
   color: #0079C0;

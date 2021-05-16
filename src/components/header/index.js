@@ -1,9 +1,11 @@
 import React from 'react';
+import { Redirect, useHistory } from 'react-router';
 import Logo from '../../img/CI&T.png'
 import './logo.css';
 
 const Header = (props) => {
   const { title, nav } = props;
+  const history = useHistory();
   return (
     <div className="header">
     <img title="CI&T" src={ Logo } alt="CI&T"/>
@@ -12,13 +14,25 @@ const Header = (props) => {
         className="nav"
         hidden={ !nav }
       >
-        <button>
+        <button
+          onClick={() => {
+            history.push('/create');
+          }}
+        >
           Cadastrar
         </button>
-        <button>
+        <button
+          onClick={() => {
+            history.push('/list');
+          }}
+        >
           Relatórios
         </button>
-        <button>
+        <button
+          onClick={() => {
+            history.push('/aboutus');
+          }}
+        >
           Sobre
         </button>
       </div>
