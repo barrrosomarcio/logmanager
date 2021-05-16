@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-// import javabugs from '../img/javabugs.png';
-// import ciandt from '../img/CI&T.png';
-// import trybe from '../img/trybe.svg';
-// import codenation from '../img/codenation.svg';
+import javabugs from '../../img/javabugs.png';
 import './login.css';
 
 const Login = () => {
@@ -17,20 +14,16 @@ const Login = () => {
     return setPassword(value);
   }
 
+  // Criar funcao para fazer o request do login e autenticar o usuario e redirecionar para "/list"
+
   return (
     <div className="login">
-      {/* <div className="banner">
-        <img className="trybe" title="Trybe" src={trybe} alt="Trybe" />
-        <img className="codenation "title="Codenation" src={codenation} alt="Codenation" />
-        <img className="ciandt" title="CI&T" src={ciandt} alt="CI%T" />
-      </div> */}
-      {/* <img className="trybe" title="Trybe" src={trybe} alt="Trybe" /> */}
       <form className="form">
-        {/* <img className="javabugs" title="JavaBugs" src={ javabugs } alt="JavaBugs" /> */}
+        <img className="javabugs" title="JavaBugs" src={ javabugs } alt="JavaBugs" />
         <label
           htmlFor="email"        
         >
-          Email:
+          Email :
           <input 
             name="email"
             value={ email }
@@ -40,7 +33,7 @@ const Login = () => {
         <label
           htmlFor="password"        
         >
-          Password:
+          Password :
           <input
             name="password"
             value={ password }
@@ -51,7 +44,6 @@ const Login = () => {
           Entrar
         </button>
       </form>
-      {/* <img className="ciandt" title="CI&T" src={ciandt} alt="CI%T" /> */}
     </div>
   );
 }

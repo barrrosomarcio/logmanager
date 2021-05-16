@@ -4,43 +4,69 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: white;
 }
 .login {
-  height: 300px;
-  width: 500px;
+  height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
-  box-sizing:content-box;
-  border: 2px solid #6c757d;
-  border-radius: 5px;
+  justify-content: center;
+  box-sizing: border-box;
 }
-.banner {
-  height: 300px;
-  width: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  background-color: #6c757d;
-}
+
 .form{
-  height: 300px;
+  border-radius: 5px;
+  height: 380px;
   width: 250px;
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   background-color: white;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 .form label {
+  align-items: flex-start;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   width: max-content;
   font-weight: bold;
+  color: #036b52;
 }
-.codenation {
+.form input {
+  border-bottom: 2px solid #036b52;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: transparent;
+}
+.banner {
+  
+  height: 100vh;
+  width: 50vw;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #6c757d;
+}
+.banner img {
+  width: 15vw;
+}
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  height: 100vh;
+  width: 50vw;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #6c757d;
+}
+/* .codenation {
   width: 210px;
 }
 .ciandt {
@@ -48,7 +74,7 @@ body {
 }
 .trybe {
   height: 60px;
-}
+} */
 .loginbtn {
   font-weight: bold;
   border-radius: 5px;
@@ -63,6 +89,25 @@ body {
   color: #ed1941;
   border:2px solid #ed1941;
 }
+.loginbtn:active {
+  transform: scale(0.9);
+  color: darken(#ed1941, 5%);
+  border-color: darken(#ed1941, 5%);
+}
 .javabugs {
   width: 210px;
+}
+.select {
+  height: 30px;
+  width: 180px;
+  font-size: 16px;
+  border: 1px solid #E8EAED;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px -2px #9098A9;
+  cursor: pointer;
+}
+.select:hover {
+  border: 2px solid #17a2b8;
 }
