@@ -1,11 +1,10 @@
-import Header from './components/header';
-import About from './pages/Sobre';
+import ListPage from './pages/List';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <About />
+      <ListPage />
     </div>
   );
 }

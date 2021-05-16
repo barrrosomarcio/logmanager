@@ -1,0 +1,9 @@
+.items-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90vw;
+  height: 71vh;
+  margin-top: 2vh;
+  margin-left: 5vw;
+}

@@ -37,6 +37,9 @@
   color: #17a2b8;
   font-weight: bold;
 }
+.nav button:active {
+  transform: scale(1.1);
+}
 .logout {
   font-weight: bold;
   border-radius: 5px;
@@ -50,4 +53,9 @@
   background-color: white;
   color: #ed1941;
   border:2px solid #ed1941;
+}
+.logout:active {
+  transform: scale(0.9);
+  color: darken(#ed1941, 5%);
+  border-color: darken(#ed1941, 5%);
 }
