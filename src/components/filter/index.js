@@ -46,8 +46,8 @@ const Filter = (props) => {
             name="tipo"
             value={ tipo }
             onChange={ handleChange }
+            placeholder="Selecione Opção"
           >
-            <option value="">Selecione Opção</option>
             {filters.map((element) => {
               return <option value={ element }>{element}</option>
             })}

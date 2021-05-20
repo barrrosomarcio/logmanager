@@ -1,5 +1,5 @@
 
-.login {
+.create {
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -20,12 +20,14 @@
   background-color: white;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   margin-bottom:15vh;
+  border: 1px solid #E8EAED;
 }
 .form label {
   align-items: flex-start;
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: max-content;
   font-weight: bold;
   color: #036b52;

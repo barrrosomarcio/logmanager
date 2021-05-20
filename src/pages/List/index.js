@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../components/header';
 import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
+import PageSelector from '../../components/pageSelector';
 import erros from './data';
 import './list.css';
 
@@ -9,6 +10,7 @@ const FilterPage = () => {
   const ZERO = 0;
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
+  const [page, setPage] = useState(1);
   const [filterData, setFilterData] = useState({
     filter:'',
     value:''
@@ -38,8 +40,14 @@ const FilterPage = () => {
         filterData={ filterData } // obj com tipo e valor de filtro selecionado
         setFilterData={ setFilterData }
       />
+      <PageSelector 
+        page={ page }
+        setPage={ setPage }
+      />
       <ItemsList 
         data={data}
+        page={ page }
+        setPage={ setData }
       />
     </div>
   );

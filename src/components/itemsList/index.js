@@ -27,6 +27,9 @@ const ItemsList = (props) => {
     <div className="items-list">
       {/* <ListItem data={ dataModel }/> */}
       {data.map((element) => <ListItem key={element.id} data={ element }/> )}
+      <div className="pages">
+
+      </div>
     </div>
   );
 }

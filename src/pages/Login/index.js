@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import javabugs from '../../img/javabugs.png';
 import './login.css';
 
 const Login = () => {
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -40,7 +42,12 @@ const Login = () => {
             onChange={ handleChange }
           />
         </label>
-        <button className="loginbtn">
+        <button
+          className="loginbtn"
+          onClick={ () =>{
+            history.push('/list');
+          }}
+        >
           Entrar
         </button>
       </form>

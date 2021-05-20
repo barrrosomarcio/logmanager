@@ -24,7 +24,7 @@ const Create = () => {
   
   
   return(
-    <div className="login">
+    <div className="create">
       <Header title="JavaBugs" nav={true}/>
       <form className="form">
       <label>
