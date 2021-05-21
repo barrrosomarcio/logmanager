@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import javabugs from '../../img/javabugs.png';
+import { loginAPI } from '../../api';
 import './login.css';
 
 const Login = () => {
@@ -16,8 +17,12 @@ const Login = () => {
     return setPassword(value);
   }
 
-  // Criar funcao para fazer o request do login e autenticar o usuario e redirecionar para "/list"
+  const logMeIn = () => {
+    loginAPI(email, password);
+  }
 
+  // Criar funcao para fazer o request do login e autenticar o usuario e redirecionar para "/list"
+  
   return (
     <div className="login">
       <form className="form">
@@ -42,15 +47,16 @@ const Login = () => {
             onChange={ handleChange }
           />
         </label>
-        <button
+        
+      </form>
+      <button
           className="loginbtn"
           onClick={ () =>{
-            history.push('/list');
+            logMeIn();
           }}
         >
           Entrar
         </button>
-      </form>
     </div>
   );
 }
