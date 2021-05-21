@@ -1,11 +1,10 @@
 import axios from 'axios';
-import qs from 'querystring';
 import base64 from 'base-64';
+import env from 'react-dotenv';
 
 
-const PORT = process.env.PORT;
-const CLIENT_ID = process.env.CLIENT_ID;
-const SECRET = process.env.SECRET;
+const CLIENT_ID = 'logmanager';
+const SECRET = '123';
 const endpoint = `http://localhost:3050/oauth/token`;
 
 
@@ -16,12 +15,13 @@ export const loginAPI = async (email, password) => {
   data.append('grant_type', 'password');
   data.append('username', 'teste@teste.com');
   data.append('password', '123456');
-
+  const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
+  console.log(hash)
   const config = {
     method: 'post',
-    url: 'http://localhost:3050/oauth/token',
+    url: endpoint,
     headers: { 
-      'Authorization': 'Basic bG9nbWFuYWdlcjoxMjM=', 
+      'Authorization': `Basic ${hash}`, 
       'Content-Type': 'form-data',
     },
     data : data
@@ -35,24 +35,3 @@ export const loginAPI = async (email, password) => {
     console.log(error);
   });
 };
-
-// let formData = new FormData();
-// formData.append('grant_type', 'password');
-// formData.append('username', 'MyUserNameSettedInApi');
-// formData.append('password', 'PasswordSettedInApi');
-// formData.append('client_id', 'MyClientId');
-// formData.append('client_secret', 'MyClientSecret');
-// formData.append('scope', 'read Write');
-
-// fetch(endpoint, {
-//     method: 'POST',
-//     headers: {
-//         'Accept': 'application/json',
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//     },
-//     body: formData
-// })
-// .then((response) => response.json())
-// .then((responseData) => {
-//     console.log(responseData);
-// });
