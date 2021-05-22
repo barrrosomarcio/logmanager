@@ -1,20 +1,19 @@
 import axios from 'axios';
 import base64 from 'base-64';
+import { getToken } from '../localStorage';
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
 const endpoint = `http://localhost:8080`;
 
-const loginAPI = async body => {
+const loginAPI = async (email, password) => {
   const FormData = require('form-data');
+  let success = false;
   const data = new FormData();
   data.append('grant_type', 'password');
-  data.append('username', 'teste@teste.com');
-  data.append('password', '123456');
-
+  data.append('username', email);
+  data.append('password', password);
   const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
-  console.log(hash);
-
   const config = {
     method: 'POST',
     url: `${endpoint}/oauth/token`,
@@ -25,17 +24,24 @@ const loginAPI = async body => {
     data,
   };
 
-  axios(config)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  await axios(config)
+  .then((response) => {
+    console.log(response.data);
+    if (response.data.access_token !== undefined) {
+      localStorage.setItem('token', JSON.stringify(response.data));
+      success = true;
+    }
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+  
+  return success;
 };
 
 const createLogAPI = body => {
-  const token = 'Bearer 924b0822-b0b6-483a-8913-5811a5473391';
+  const authToken = getToken();
+  const token = `Bearer ${authToken}`;
   const options = {
     method: 'POST',
     url: `${endpoint}/log`,

@@ -5,7 +5,7 @@ import { createLogAPI } from '../../api';
 import './create.css';
 
 const defaultValues = {
-  date: new Date(),
+  date: '',
   description: '',
   event: '',
   quantity: '',
@@ -33,6 +33,16 @@ const Create = () => {
     <div className="create">
       <Header title="JavaBugs" nav={true}/>
       <form className="form">
+
+        <label>
+          Data :
+          <input
+            type='date'
+            name="date"
+            value={ formCreateLog.date }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
 
         <label>
           Descrição :

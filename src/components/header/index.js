@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import Logo from '../../img/CI&T.png'
 import './logo.css';
 
