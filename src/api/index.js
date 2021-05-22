@@ -1,37 +1,55 @@
 import axios from 'axios';
 import base64 from 'base-64';
-import env from 'react-dotenv';
-
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
-const endpoint = `http://localhost:3050/oauth/token`;
+const endpoint = `http://localhost:8080`;
 
-
-export const loginAPI = async (email, password) => {
-  
+const loginAPI = async body => {
   const FormData = require('form-data');
   const data = new FormData();
   data.append('grant_type', 'password');
   data.append('username', 'teste@teste.com');
   data.append('password', '123456');
+
   const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
-  console.log(hash)
+  console.log(hash);
+
   const config = {
-    method: 'post',
-    url: endpoint,
-    headers: { 
-      'Authorization': `Basic ${hash}`, 
+    method: 'POST',
+    url: `${endpoint}/oauth/token`,
+    headers: {
+      Authorization: `Basic ${hash}`,
       'Content-Type': 'form-data',
     },
-    data : data
+    data,
   };
 
   axios(config)
-  .then(function (response) {
-    console.log(JSON.stringify(response.data));
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
+
+const createLogAPI = body => {
+  const token = 'Bearer 924b0822-b0b6-483a-8913-5811a5473391';
+  const options = {
+    method: 'POST',
+    url: `${endpoint}/log`,
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: token,
+    },
+    data: body,
+  };
+
+  return axios
+    .request(options)
+    .then((response) => response)
+    .catch((error) => error.response);
+};
+
+export { loginAPI, createLogAPI };
