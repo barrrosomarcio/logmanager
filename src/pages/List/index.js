@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/header';
 import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
 import PageSelector from '../../components/pageSelector';
 import erros from './data';
+import { getAllLogApi } from '../../api';
 import './list.css';
 
 const FilterPage = () => {
   const ZERO = 0;
+  const history = useHistory();
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [page, setPage] = useState(1);
@@ -16,11 +19,16 @@ const FilterPage = () => {
     value:''
   });
 
+  const handleRequestGetAllLogsApi = async () => {
+    const response = await getAllLogApi();
+    if (response.status !== 200 || !response) return history.push('/login');
+    setData(response.data.content);
+  }
 
   useEffect(() => {
     // criar requisicao para buscar erros sem filtros e setar "data" com o retorno.
-    console.log('filterpage', erros)
-    setData(erros);
+    // console.log('filterpage', erros)
+    handleRequestGetAllLogsApi();
   }, []);
 
   useEffect(() => {

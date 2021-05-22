@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Header from '../../components/header';
 import { createLogAPI } from '../../api';
 import './create.css';
@@ -15,7 +14,6 @@ const defaultValues = {
 
 const Create = () => {
   const [formCreateLog, setFormCreateLog] = useState(defaultValues);
-  const history = useHistory();
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -25,8 +23,8 @@ const Create = () => {
   const handleRequestCreateLogApi = async () => {
     const response = await createLogAPI(formCreateLog);
     console.log(response.data);
-    if (response.status !== 201 || !response) return history.push('/login');
-    alert('Log criado com sucesso');
+    if (response.status !== 201 || !response) return alert('Existe campos não preenchidos!');
+    alert('Log criado com sucesso!');
   }
   
   return(

@@ -25,17 +25,17 @@ const loginAPI = async (email, password) => {
   };
 
   await axios(config)
-  .then((response) => {
-    console.log(response.data);
-    if (response.data.access_token !== undefined) {
-      localStorage.setItem('token', JSON.stringify(response.data));
-      success = true;
-    }
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-  
+    .then(response => {
+      console.log(response.data);
+      if (response.data.access_token !== undefined) {
+        localStorage.setItem('token', JSON.stringify(response.data));
+        success = true;
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
   return success;
 };
 
@@ -54,8 +54,25 @@ const createLogAPI = body => {
 
   return axios
     .request(options)
+    .then(response => response)
+    .catch(error => error.response);
+};
+
+const getAllLogApi = () => {
+  const authToken = getToken();
+  const token = `Bearer ${authToken}`;
+  const options = {
+    method: 'GET',
+    url: `${endpoint}/log`,
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  return axios
+    .request(options)
     .then((response) => response)
     .catch((error) => error.response);
 };
 
-export { loginAPI, createLogAPI };
+export { loginAPI, createLogAPI, getAllLogApi };
