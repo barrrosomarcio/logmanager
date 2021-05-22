@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../../components/header';
 import { createLogAPI } from '../../api';
 import './create.css';
+import { useHistory } from 'react-router';
 
 const defaultValues = {
   date: '',
@@ -11,8 +12,8 @@ const defaultValues = {
   level: 'error',
   origin: 'system',
 }
-
 const Create = () => {
+  const history = useHistory();
   const [formCreateLog, setFormCreateLog] = useState(defaultValues);
 
   const handleChange = ({ target }) => {
@@ -25,6 +26,7 @@ const Create = () => {
     console.log(response.data);
     if (response.status !== 201 || !response) return alert('Existe campos não preenchidos!');
     alert('Log criado com sucesso!');
+    history.push('./create');
   }
   
   return(

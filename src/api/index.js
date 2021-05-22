@@ -4,7 +4,7 @@ import { getToken } from '../localStorage';
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
-const endpoint = `http://localhost:8080`;
+const endpoint = `http://localhost:3050`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
@@ -58,7 +58,34 @@ const createLogAPI = body => {
     .catch(error => error.response);
 };
 
-const getAllLogApi = () => {
+const getFiltered = (filterField, filterValue, page, size, sort) => {
+  const FormData = require('form-data');
+  const data = new FormData();
+  data.append('size', size);
+  data.append('page', page);
+  if (filterField !== '') {
+    data.append('filterfield', filterField);
+    data.append('filterValue', filterValue);
+  }
+  console.log('body', size)
+  const authToken = getToken();
+  const token = `Bearer ${authToken}`;
+  const config = {
+    method: 'GET',
+    url: `${endpoint}/log`,
+    headers: {
+      'Content-Type': 'form-data',
+      Authorization: token,
+    },
+    data,
+  };
+
+  return axios(config)
+    .then(response => response)
+    .catch(error => error.response);
+};
+
+const getAllLogApi = async () => {
   const authToken = getToken();
   const token = `Bearer ${authToken}`;
   const options = {
@@ -69,10 +96,13 @@ const getAllLogApi = () => {
     },
   };
 
-  return axios
+  let output = [];
+  await axios
     .request(options)
-    .then((response) => response)
-    .catch((error) => error.response);
+    .then((response) => {output = response})
+    .catch((error) => { output = error.response});
+
+  return output;
 };
 
-export { loginAPI, createLogAPI, getAllLogApi };
+export { loginAPI, createLogAPI, getAllLogApi, getFiltered };

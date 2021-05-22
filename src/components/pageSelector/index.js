@@ -4,9 +4,27 @@ import { ReactComponent as Right } from '../../img/arrow-right-square.svg';
 import './pageSelector.css';
 
 const PageSelection = (props) => {
-  const {page, setPage} = props;
+  const {
+    page,
+    setPage,
+    size,
+    setSize,
+  } = props;
+ 
   return (
     <div className="page-selector">
+      <label>Qtde :{' '}</label>
+      <select
+        className="selectpage"
+        value={ size }
+        onChange={ (e) => {
+          setSize(e.target.value)
+        }}
+      >
+        <option value={ 5 }>5</option>
+        <option value={ 10 }>10</option>
+        <option value={ 20 }>20</option>
+      </select>
       <button
         onClick={ () => {
           if (page > 1) {
@@ -24,7 +42,15 @@ const PageSelection = (props) => {
       >
         <Right className="icon" />
       </button>
+      {/* <label>
+        Ordenar por: {' '}
+      </label>
+      <select>
+        <option>ASC</option>
+        <option>DESC</option>
+      </select> */}
     </div>
+    
   );
 }
 

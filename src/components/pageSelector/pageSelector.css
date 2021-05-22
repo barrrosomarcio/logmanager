@@ -32,3 +32,17 @@
   transform: scale(0.9);
   background-color: darken(#036b52, 5%);
 }
+.selectpage {
+  height: 30px;
+  width: 50px;
+  font-size: 16px;
+  border: 1px solid #E8EAED;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px -2px #9098A9;
+  cursor: pointer;
+}
+.select:hover {
+  border: 2px solid #17a2b8;
+}

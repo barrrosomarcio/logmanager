@@ -8,7 +8,6 @@ const Filter = (props) => {
     setFilterData } = props;
   const [tipo, setTipo] = useState(filterData.filter);
   const [valor, setValor] = useState(filterData.value);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     if(name === 'tipo') {

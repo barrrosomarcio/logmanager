@@ -5,7 +5,7 @@ import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
 import PageSelector from '../../components/pageSelector';
 import erros from './data';
-import { getAllLogApi } from '../../api';
+import { getAllLogApi, getFiltered } from '../../api';
 import './list.css';
 
 const FilterPage = () => {
@@ -14,6 +14,8 @@ const FilterPage = () => {
   const [data, setData] = useState([]);
   const [filters, setFilters] = useState([]);
   const [page, setPage] = useState(1);
+  const [sort, setSort] = useState('');
+  const [size, setSize] = useState(20);
   const [filterData, setFilterData] = useState({
     filter:'',
     value:''
@@ -21,41 +23,56 @@ const FilterPage = () => {
 
   const handleRequestGetAllLogsApi = async () => {
     const response = await getAllLogApi();
+    
     if (response.status !== 200 || !response) return history.push('/login');
-    setData(response.data.content);
+    return setData(response.data.content);
+  };
+
+  const getFilteredData = async () => {
+    const { filter, value } = filterData
+    const response = await getFiltered(filter, value, page, size, sort);
+    console.log('response', response);
+    if (response.status !== 200 || !response) return false;
+    return setData(response.data.content);
   }
+  
 
   useEffect(() => {
-    // criar requisicao para buscar erros sem filtros e setar "data" com o retorno.
-    // console.log('filterpage', erros)
     handleRequestGetAllLogsApi();
   }, []);
 
   useEffect(() => {
     // criar requisicao com filtros do "filterdata"
-  }, [filterData]);
+    console.log('chamou');
+    getFilteredData();
+  }, [page, size, filterData]);
 
-  if( data.length === ZERO) {
-    return(
-      <h1>Carregando...</h1>
-    );
+
+  let filterOptions = []
+  if (data.length > ZERO) {
+    filterOptions = Object.keys(data[0]);
   }
   return (
     <div className="list-page">
       <Header title="JavaBugs" nav={ true }/>
       <Filter
-        filters={ Object.keys(data[0]) } //array com os tipos de filtro
+        filters={ filterOptions } //array com os tipos de filtro
         filterData={ filterData } // obj com tipo e valor de filtro selecionado
         setFilterData={ setFilterData }
       />
-      <PageSelector 
+      <PageSelector
         page={ page }
         setPage={ setPage }
+        sort={ sort }
+        setSort={ setSort }
+        size={ size }
+        setSize={ setSize }
       />
       <ItemsList 
         data={data}
         page={ page }
         setPage={ setData }
+        
       />
     </div>
   );
