@@ -12,7 +12,7 @@ const defaultValuesFilter = {
   filterValue: '',
   page: '0',
   size: '20',
-  sortField:'id',
+  sortField: 'id',
   sort: 'asc',
 };
 
@@ -32,7 +32,7 @@ const FilterPage = () => {
   const getFilteredData = async () => {
     if (filterValues.filterField === 'id' && filterValues.filterValue.length) {
       const response = await getLogByIdApi(filterValues.filterValue);
-      if (response.status !== 200 || !response) return false;
+      if (response.status !== 200 || !response) return setData([]);
       return setData([response.data]);
     }
     const response = await getFiltered(filterValues);
@@ -48,10 +48,15 @@ const FilterPage = () => {
     getFilteredData();
   }, [filterValues]);
 
-  let filterOptions = [];
-  if (data && data.length > ZERO) {
-    filterOptions = Object.keys(data[0]);
-  }
+  let filterOptions = [
+    'id',
+    'date',
+    'description',
+    'quantity',
+    'level',
+    'origin',
+  ];
+  
   return (
     <div className='list-page'>
       <Header title='JavaBugs' nav={true} />
@@ -61,11 +66,11 @@ const FilterPage = () => {
         setFilterData={setFilterValues}
       />
       <PageSelector
-        sortOptions={ filterOptions }
+        sortOptions={filterOptions}
         filterData={filterValues}
         page={filterValues.page}
         setPage={setFilterValues}
-        sortField={ filterValues.sortField}
+        sortField={filterValues.sortField}
         sort={filterValues.sort}
         setSort={setFilterValues}
         size={filterValues.size}

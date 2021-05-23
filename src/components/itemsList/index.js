@@ -2,39 +2,23 @@ import React from 'react';
 import './itemslist.css';
 import ListItem from '../listItem';
 
-const ItemsList = (props) => {
-  const { data, filterData } = props;
+const ItemsList = props => {
+  const { data } = props;
 
-  // const filter = (data) => {
-  //   const { filter, value } = filterData;
-  //   if (filter === '' || value === '') {
-  //     return data;
-  //   }
-    
-  //   const filteredData = data.filter((element) => element[filter] == value );
-  //   return filteredData
-  // }
-  // const dataModel = {
-  //   id: 'ID',
-  //   level: 'LEVEL',
-  //   description: 'DESCRIÇÃO',
-  //   origin:'ORIGEM',
-  //   date: 'DATA',
-  //   quantity: 'QUANTIDADE',
-  // };
-  // const showElements = filter(data);
-
-  if (!data.length) return <h1>Não existe Logs Cadastrados</h1>
-
-  return(
-    <div className="items-list">
-      {/* <ListItem data={ dataModel }/> */}
-      {data.map((element) => <ListItem key={element.id} data={ element }/> )}
-      <div className="pages">
-
+  if (!data.length)
+    return (
+      <div className='items-list'>
+        <h1>Não há nada a ser exibido</h1>
       </div>
+    );
+
+  return (
+    <div className='items-list'>
+      {data.map(element => (
+        <ListItem key={element.id} data={element} />
+      ))}
     </div>
   );
-}
+};
 
 export default ItemsList;

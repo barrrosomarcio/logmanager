@@ -4,7 +4,7 @@ import { getToken } from '../localStorage';
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
-const endpoint = `http://localhost:3050`;
+const endpoint = `http://localhost:8080`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
