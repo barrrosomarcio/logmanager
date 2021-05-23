@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import javabugs from '../../img/javabugs.png';
 import { loginAPI } from '../../api';
@@ -20,14 +20,11 @@ const Login = () => {
 
   const logMeIn = async () => {
     const logged = await loginAPI(email, password); 
-    console.log(logged);
     if(logged) {
       return history.push('/list');
     }
     return setError('Email ou senha nao sao válidos');
   }
-
-  // Criar funcao para fazer o request do login e autenticar o usuario e redirecionar para "/list"
   
   return (
     <div className="login">

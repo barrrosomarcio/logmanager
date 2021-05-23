@@ -23,7 +23,6 @@ const Create = () => {
 
   const handleRequestCreateLogApi = async () => {
     const response = await createLogAPI(formCreateLog);
-    console.log(response.data);
     if (response.status !== 201 || !response) return alert('Existe campos não preenchidos!');
     alert('Log criado com sucesso!');
     history.push('./create');

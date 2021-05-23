@@ -4,7 +4,7 @@ import { getToken } from '../localStorage';
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
-const endpoint = `http://localhost:8080`;
+const endpoint = `http://localhost:3050`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
@@ -23,17 +23,15 @@ const loginAPI = async (email, password) => {
     },
     data,
   };
-
+  console.log('config', config)
   await axios(config)
     .then(response => {
-      // console.log(response);
-      if (response.data.access_token !== undefined) {
+      if (response.status === 200) {
         localStorage.setItem('token', JSON.stringify(response.data));
         success = true;
       }
     })
     .catch(error => {
-      console.log(error);
     });
 
   return success;
@@ -85,12 +83,12 @@ const handleUrlFilter = (filterField, filterValue, page, size, sort) => {
   return url;
 };
 
-const getFiltered = ({ filterField, filterValue, page, size, sort }) => {
+const getFiltered = ({ filterField, filterValue, page, size, sort, sortField }) => {
   const authToken = getToken();
   const token = `Bearer ${authToken}`;
   const config = {
     method: 'GET',
-    url: handleUrlFilter(filterField, filterValue, page, size, sort),
+    url: handleUrlFilter(filterField, filterValue, page, size, `${sortField}:${sort}`),
     headers: {
       'Content-Type': 'form-data',
       Authorization: token,

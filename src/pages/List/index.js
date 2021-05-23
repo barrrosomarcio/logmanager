@@ -12,6 +12,7 @@ const defaultValuesFilter = {
   filterValue: '',
   page: '0',
   size: '20',
+  sortField:'id',
   sort: 'asc',
 };
 
@@ -31,15 +32,11 @@ const FilterPage = () => {
   const getFilteredData = async () => {
     if (filterValues.filterField === 'id' && filterValues.filterValue.length) {
       const response = await getLogByIdApi(filterValues.filterValue);
-      console.log('responseID', response);
       if (response.status !== 200 || !response) return false;
-      console.log('chamouID');
       return setData([response.data]);
     }
     const response = await getFiltered(filterValues);
-    console.log('response', response);
     if (response.status !== 200 || !response) return false;
-    console.log('chamou');
     return setData(response.data.content);
   };
 
@@ -48,7 +45,6 @@ const FilterPage = () => {
   }, []);
 
   useEffect(() => {
-    // criar requisicao com filtros do "filterdata"
     getFilteredData();
   }, [filterValues]);
 
@@ -65,9 +61,11 @@ const FilterPage = () => {
         setFilterData={setFilterValues}
       />
       <PageSelector
+        sortOptions={ filterOptions }
         filterData={filterValues}
         page={filterValues.page}
         setPage={setFilterValues}
+        sortField={ filterValues.sortField}
         sort={filterValues.sort}
         setSort={setFilterValues}
         size={filterValues.size}

@@ -43,6 +43,34 @@
   box-shadow: 0 1px 3px -2px #9098A9;
   cursor: pointer;
 }
-.select:hover {
+.selectpage:hover {
+  border: 2px solid #17a2b8;
+}
+.selectorder {
+  height: 30px;
+  width: 80px;
+  font-size: 16px;
+  border: 1px solid #E8EAED;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px -2px #9098A9;
+  cursor: pointer;
+}
+.selectorder:hover {
+  border: 2px solid #17a2b8;
+}
+.selectorderfield {
+  height: 30px;
+  width: 110px;
+  font-size: 16px;
+  border: 1px solid #E8EAED;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 0 1px 3px -2px #9098A9;
+  cursor: pointer;
+}
+.selectorderfield:hover {
   border: 2px solid #17a2b8;
 }

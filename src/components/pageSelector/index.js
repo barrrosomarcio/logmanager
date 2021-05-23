@@ -4,7 +4,8 @@ import { ReactComponent as Right } from '../../img/arrow-right-square.svg';
 import './pageSelector.css';
 
 const PageSelection = props => {
-  const { filterData, page, setPage, size, setSize } = props;
+  const { filterData, page, setPage, size, setSize, sortOptions, sortField } = props;
+  console.log('field', sortField )
 
   return (
     <div className='page-selector'>
@@ -34,13 +35,26 @@ const PageSelection = props => {
         }}>
         <Right className='icon' />
       </button>
-      {/* <label>
+      <label>
         Ordenar por: {' '}
       </label>
-      <select>
+      <select
+        className="selectorderfield"
+        value={sortField}
+        onChange={ (e) => {
+          setPage({ ...filterData, sortField: e.target.value })
+        }}
+      >
+        {sortOptions.map(option => {
+          return <option key={option} value={option}>{option}</option>
+        })}
+      </select>
+      <select
+        className='selectorder'
+      >
         <option>ASC</option>
         <option>DESC</option>
-      </select> */}
+      </select>
     </div>
   );
 };
