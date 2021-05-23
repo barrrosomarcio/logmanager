@@ -6,8 +6,8 @@ const Filter = (props) => {
     filters,
     filterData,
     setFilterData } = props;
-  const [tipo, setTipo] = useState(filterData.filter);
-  const [valor, setValor] = useState(filterData.value);
+  const [tipo, setTipo] = useState(filterData.filterField);
+  const [valor, setValor] = useState(filterData.filterValue);
   const handleChange = (e) => {
     const { name, value } = e.target;
     if(name === 'tipo') {
@@ -17,8 +17,9 @@ const Filter = (props) => {
   }
   const submitFilter = () => {
     const filter = {
-      filter: tipo,
-      value: valor
+      ...filterData,
+      filterField: tipo,
+      filterValue: valor
     };
 
     if (tipo === '' || valor ==='') {
@@ -28,8 +29,9 @@ const Filter = (props) => {
   }
   const cleanFilters = () => {
     const filter = {
-      filter: '',
-      value: ''
+      ...filterData,
+      filterField: '',
+      filterValue: ''
     };
     return setFilterData(filter);
   }

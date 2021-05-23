@@ -5,6 +5,7 @@ import './pageSelector.css';
 
 const PageSelection = (props) => {
   const {
+    filterData,
     page,
     setPage,
     size,
@@ -18,7 +19,7 @@ const PageSelection = (props) => {
         className="selectpage"
         value={ size }
         onChange={ (e) => {
-          setSize(e.target.value)
+          setSize({ ...filterData, size: e.target.value})
         }}
       >
         <option value={ 5 }>5</option>
@@ -28,7 +29,7 @@ const PageSelection = (props) => {
       <button
         onClick={ () => {
           if (page > 1) {
-            setPage(page - 1);
+            setPage({ ...filterData, page: page - 1});
           }
         } }
       >
@@ -37,7 +38,7 @@ const PageSelection = (props) => {
       <p>{page}</p>
       <button
         onClick={ () => {
-          setPage(page + 1);
+          setPage({ ...filterData, page: page + 1});
         } }
       >
         <Right className="icon" />

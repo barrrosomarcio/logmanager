@@ -20,6 +20,7 @@ const Login = () => {
 
   const logMeIn = async () => {
     const logged = await loginAPI(email, password); 
+    console.log(logged);
     if(logged) {
       return history.push('/list');
     }

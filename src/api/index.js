@@ -4,29 +4,29 @@ import { getToken } from '../localStorage';
 
 const CLIENT_ID = 'logmanager';
 const SECRET = '123';
-const endpoint = `http://localhost:3050`;
+const endpoint = `http://localhost:8080`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
-  let success = false;
   const data = new FormData();
   data.append('grant_type', 'password');
   data.append('username', email);
   data.append('password', password);
+  let success = false;
   const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
   const config = {
     method: 'POST',
     url: `${endpoint}/oauth/token`,
     headers: {
-      Authorization: `Basic ${hash}`,
       'Content-Type': 'form-data',
+      Authorization: `Basic ${hash}`,
     },
     data,
   };
 
   await axios(config)
     .then(response => {
-      console.log(response.data);
+      // console.log(response);
       if (response.data.access_token !== undefined) {
         localStorage.setItem('token', JSON.stringify(response.data));
         success = true;
@@ -58,26 +58,43 @@ const createLogAPI = body => {
     .catch(error => error.response);
 };
 
-const getFiltered = (filterField, filterValue, page, size, sort) => {
-  const FormData = require('form-data');
-  const data = new FormData();
-  data.append('size', size);
-  data.append('page', page);
-  if (filterField !== '') {
-    data.append('filterfield', filterField);
-    data.append('filterValue', filterValue);
+const handleUrlFilter = (filterField, filterValue, page, size, sort) => {
+  let url = `${endpoint}/log`;
+  let exist = false;
+
+  if (filterField && filterValue) {
+    url += `?filterField=${filterField}&filterValue=${filterValue}`;
+    exist = true;
   }
-  console.log('body', size)
+  if (page && exist) url += `&page=${page}`;
+  if (page && !exist) {
+    url += `?page=${page}`;
+    exist = true;
+  }
+  if (size && exist) url += `&size=${size}`;
+  if (size && !exist) {
+    url += `?size=${size}`;
+    exist = true;
+  }
+  if (sort && exist) url += `&sort=${sort}`;
+  if (sort && !exist) {
+    url += `?sort=${sort}`;
+    exist = true;
+  }
+
+  return url;
+};
+
+const getFiltered = ({ filterField, filterValue, page, size, sort }) => {
   const authToken = getToken();
   const token = `Bearer ${authToken}`;
   const config = {
     method: 'GET',
-    url: `${endpoint}/log`,
+    url: handleUrlFilter(filterField, filterValue, page, size, sort),
     headers: {
       'Content-Type': 'form-data',
       Authorization: token,
     },
-    data,
   };
 
   return axios(config)
@@ -99,8 +116,12 @@ const getAllLogApi = async () => {
   let output = [];
   await axios
     .request(options)
-    .then((response) => {output = response})
-    .catch((error) => { output = error.response});
+    .then(response => {
+      output = response;
+    })
+    .catch(error => {
+      output = error.response;
+    });
 
   return output;
 };
