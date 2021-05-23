@@ -23,6 +23,9 @@ const ItemsList = (props) => {
   //   quantity: 'QUANTIDADE',
   // };
   // const showElements = filter(data);
+
+  if (!data.length) return <h1>Loading...</h1>
+
   return(
     <div className="items-list">
       {/* <ListItem data={ dataModel }/> */}

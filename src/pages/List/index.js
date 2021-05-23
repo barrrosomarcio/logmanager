@@ -4,11 +4,11 @@ import Header from '../../components/header';
 import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
 import PageSelector from '../../components/pageSelector';
-import { getAllLogApi, getFiltered } from '../../api';
+import { getAllLogApi, getFiltered, getLogByIdApi } from '../../api';
 import './list.css';
 
 const defaultValuesFilter = {
-  filterField: '',
+  filterField: 'id',
   filterValue: '',
   page: '0',
   size: '20',
@@ -20,13 +20,6 @@ const FilterPage = () => {
   const history = useHistory();
   const [data, setData] = useState([]);
   const [filterValues, setFilterValues] = useState(defaultValuesFilter);
-  // const [page, setPage] = useState(0);
-  // const [sort, setSort] = useState('asc');
-  // const [size, setSize] = useState(20);
-  // const [filterData, setFilterData] = useState({
-  //   filter: '',
-  //   value: '',
-  // });
 
   const handleRequestGetAllLogsApi = async () => {
     const response = await getAllLogApi();
@@ -36,6 +29,13 @@ const FilterPage = () => {
   };
 
   const getFilteredData = async () => {
+    if (filterValues.filterField === 'id' && filterValues.filterValue.length) {
+      const response = await getLogByIdApi(filterValues.filterValue);
+      console.log('responseID', response);
+      if (response.status !== 200 || !response) return false;
+      console.log('chamouID');
+      return setData([response.data]);
+    }
     const response = await getFiltered(filterValues);
     console.log('response', response);
     if (response.status !== 200 || !response) return false;
@@ -53,7 +53,7 @@ const FilterPage = () => {
   }, [filterValues]);
 
   let filterOptions = [];
-  if (data.length > ZERO) {
+  if (data && data.length > ZERO) {
     filterOptions = Object.keys(data[0]);
   }
   return (

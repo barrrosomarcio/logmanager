@@ -126,4 +126,28 @@ const getAllLogApi = async () => {
   return output;
 };
 
-export { loginAPI, createLogAPI, getAllLogApi, getFiltered };
+const getLogByIdApi = async id => {
+  const authToken = getToken();
+  const token = `Bearer ${authToken}`;
+  const options = {
+    method: 'GET',
+    url: `${endpoint}/log/${id}`,
+    headers: {
+      Authorization: token,
+    },
+  };
+
+  let output = [];
+  await axios
+    .request(options)
+    .then(response => {
+      output = response;
+    })
+    .catch(error => {
+      output = error.response;
+    });
+
+  return output;
+};
+
+export { loginAPI, createLogAPI, getAllLogApi, getFiltered, getLogByIdApi };
