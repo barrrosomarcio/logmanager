@@ -24,7 +24,7 @@ const ItemsList = (props) => {
   // };
   // const showElements = filter(data);
 
-  if (!data.length) return <h1>Loading...</h1>
+  if (!data.length) return <h1>Não existe Logs Cadastrados</h1>
 
   return(
     <div className="items-list">
