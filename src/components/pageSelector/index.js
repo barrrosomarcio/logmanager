@@ -4,7 +4,7 @@ import { ReactComponent as Right } from '../../img/arrow-right-square.svg';
 import './pageSelector.css';
 
 const PageSelection = props => {
-  const { filterData, page, setPage, size, setSize, sortOptions, sortField } = props;
+  const { filterData, page, setPage, size, setSize, sortOptions, sort, sortField } = props;
   console.log('field', sortField )
 
   return (
@@ -51,6 +51,9 @@ const PageSelection = props => {
       </select>
       <select
         className='selectorder'
+        onChange={ (e) => {
+          setPage({ ...filterData, sort: e.target.value })
+        }}
       >
         <option>ASC</option>
         <option>DESC</option>

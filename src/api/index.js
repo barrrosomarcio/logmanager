@@ -88,7 +88,7 @@ const getFiltered = ({ filterField, filterValue, page, size, sort, sortField }) 
   const token = `Bearer ${authToken}`;
   const config = {
     method: 'GET',
-    url: handleUrlFilter(filterField, filterValue, page, size, `${sortField}:${sort}`),
+    url: handleUrlFilter(filterField, filterValue, page, size, `${sortField},${sort}`),
     headers: {
       'Content-Type': 'form-data',
       Authorization: token,
