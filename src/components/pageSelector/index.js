@@ -28,17 +28,17 @@ const PageSelection = (props) => {
       </select>
       <button
         onClick={ () => {
-          if (page > 1) {
-            setPage({ ...filterData, page: page - 1});
+          if (page > 0) {
+            setPage({ ...filterData, page: parseInt(page, 10) - 1});
           }
         } }
       >
         <Left className="icon" />
       </button>
-      <p>{page}</p>
+      <p>{parseInt(page, 10) + 1}</p>
       <button
         onClick={ () => {
-          setPage({ ...filterData, page: page + 1});
+          setPage({ ...filterData, page: parseInt(page, 10) + 1});
         } }
       >
         <Right className="icon" />
