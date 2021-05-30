@@ -1,5 +1,7 @@
-JavaBugs
+#JavaBugs
 
-#bibliotecas:
-  npm install react-social-icons
-  https://github.com/jaketrent/react-social-icons
+Aplicação Criada em React para demonstrar uso de endpoints da API Logmanager
+
+
+## LogManager
+https://github.com/barrrosomarcio/logmanagerBackEnd
