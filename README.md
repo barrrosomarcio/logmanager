@@ -8,4 +8,4 @@ https://github.com/barrrosomarcio/logmanagerBackEnd
 
 
 #### Login
-![Login.jpeg](./images/Login.jpeg)
+![Login.jpg](./images/Login.jpg)
