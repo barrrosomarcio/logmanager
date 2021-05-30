@@ -1,79 +1,103 @@
 import React, { useState } from 'react';
-import { Switch } from 'react-router';
 import Header from '../../components/header';
+import { createLogAPI } from '../../api';
 import './create.css';
+import { useHistory } from 'react-router';
 
+const defaultValues = {
+  date: '',
+  description: '',
+  event: '',
+  quantity: '',
+  level: 'error',
+  origin: 'system',
+}
 const Create = () => {
-  const [description, setDescription] = useState('');
-  const [event, setEvent] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [level, setLevel] = useState('');
-  const [origin, setOrigin] = useState('');
+  const history = useHistory();
+  const [formCreateLog, setFormCreateLog] = useState(defaultValues);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    switch(name) {
-      case "description": return setDescription(value);
-      case "event": return setEvent(value);
-      case "quantity": return setQuantity(value);
-      case "level": return setLevel(value);
-      case "origin": return setOrigin(value);
-      default: break;
-    }
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setFormCreateLog({ ...formCreateLog, [name]: value });
   }
-  
+
+  const handleRequestCreateLogApi = async () => {
+    const response = await createLogAPI(formCreateLog);
+    if (response.status !== 201 || !response) return alert('Existe campos não preenchidos!');
+    alert('Log criado com sucesso!');
+    history.push('./create');
+  }
   
   return(
     <div className="create">
       <Header title="JavaBugs" nav={true}/>
       <form className="form">
-      <label>
-        Descrição :
-        <input
-          name="description"
-          value={description}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Evento :
-        <input
-          name="event"
-          value={event}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Quantidade :
-        <input
-          name="quantity"
-          value={quantity}
-          onChange={handleChange}
-        />
-      </label>
-      <select
-        className="select"
-        name="level"
-        value="level"
-        onChange={handleChange}
-      >
-        <option value="error">Error</option>
-        <option value="warnin">Warning</option>
-        <option value="info">Info</option>
-      </select>
-      <label>
-        Origem :
-        <input
+
+        <label>
+          Data :
+          <input
+            type='date'
+            name="date"
+            value={ formCreateLog.date }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+
+        <label>
+          Descrição :
+          <input
+            name="description"
+            value={ formCreateLog.description }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+
+        <label>
+          Evento :
+          <input
+            name="event"
+            value={ formCreateLog.event }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+
+        <label>
+          Quantidade :
+          <input
+            name="quantity"
+            value={ formCreateLog.quantity }
+            onChange={ (e) => handleChange(e) }
+          />
+        </label>
+
+        <select
+          className="select"
+          name="level"
+          value={ formCreateLog.level }
+          onChange={ (e) => handleChange(e) }
+        >
+          <option value="error">Error</option>
+          <option value="warning">Warning</option>
+          <option value="info">Info</option>
+        </select>
+
+        <select
+          className="select"
           name="origin"
-          value={origin}
-          onChange={handleChange}
-        />
-      </label>
-      <button
-        className="loginbtn"
-      >
-        Cadastrar Erro
-      </button>
+          value={ formCreateLog.origin }
+          onChange={ (e) => handleChange(e) }
+        >
+          <option value="system">System</option>
+          <option value="service">Service</option>
+        </select>
+
+        <button
+          type='button'
+          className="loginbtn"
+          onClick={ handleRequestCreateLogApi }
+        >
+          Cadastrar Erro
+        </button>
       </form>
     </div>
   );

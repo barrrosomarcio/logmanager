@@ -1,56 +1,84 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Header from '../../components/header';
 import Filter from '../../components/filter';
 import ItemsList from '../../components/itemsList';
 import PageSelector from '../../components/pageSelector';
-import erros from './data';
+import { getAllLogApi, getFiltered, getLogByIdApi } from '../../api';
 import './list.css';
+
+const defaultValuesFilter = {
+  filterField: 'id',
+  filterValue: '',
+  page: '0',
+  size: '20',
+  sortField: 'id',
+  sort: 'asc',
+};
 
 const FilterPage = () => {
   const ZERO = 0;
+  const history = useHistory();
   const [data, setData] = useState([]);
-  const [filters, setFilters] = useState([]);
-  const [page, setPage] = useState(1);
-  const [filterData, setFilterData] = useState({
-    filter:'',
-    value:''
-  });
+  const [filterValues, setFilterValues] = useState(defaultValuesFilter);
 
+  const handleRequestGetAllLogsApi = async () => {
+    const response = await getAllLogApi();
+
+    if (response.status !== 200 || !response) return history.push('/login');
+    return setData(response.data.content);
+  };
+
+  const getFilteredData = async () => {
+    if (filterValues.filterField === 'id' && filterValues.filterValue.length) {
+      const response = await getLogByIdApi(filterValues.filterValue);
+      if (response.status !== 200 || !response) return setData([]);
+      return setData([response.data]);
+    }
+    const response = await getFiltered(filterValues);
+    if (response.status !== 200 || !response) return false;
+    return setData(response.data.content);
+  };
 
   useEffect(() => {
-    // criar requisicao para buscar erros sem filtros e setar "data" com o retorno.
-    console.log('filterpage', erros)
-    setData(erros);
+    handleRequestGetAllLogsApi();
   }, []);
 
   useEffect(() => {
-    // criar requisicao com filtros do "filterdata"
-  }, [filterData]);
+    getFilteredData();
+  }, [filterValues]);
 
-  if( data.length === ZERO) {
-    return(
-      <h1>Carregando...</h1>
-    );
-  }
+  let filterOptions = [
+    'id',
+    'date',
+    'description',
+    'quantity',
+    'level',
+    'origin',
+  ];
+  
   return (
-    <div className="list-page">
-      <Header title="JavaBugs" nav={ true }/>
+    <div className='list-page'>
+      <Header title='JavaBugs' nav={true} />
       <Filter
-        filters={ Object.keys(data[0]) } //array com os tipos de filtro
-        filterData={ filterData } // obj com tipo e valor de filtro selecionado
-        setFilterData={ setFilterData }
+        filters={filterOptions} //array com os tipos de filtro
+        filterData={filterValues} // obj com tipo e valor de filtro selecionado
+        setFilterData={setFilterValues}
       />
-      <PageSelector 
-        page={ page }
-        setPage={ setPage }
+      <PageSelector
+        sortOptions={filterOptions}
+        filterData={filterValues}
+        page={filterValues.page}
+        setPage={setFilterValues}
+        sortField={filterValues.sortField}
+        sort={filterValues.sort}
+        setSort={setFilterValues}
+        size={filterValues.size}
+        setSize={setFilterValues}
       />
-      <ItemsList 
-        data={data}
-        page={ page }
-        setPage={ setData }
-      />
+      <ItemsList data={data} page={filterValues.page} setPage={setData} />
     </div>
   );
-}
+};
 
 export default FilterPage;
