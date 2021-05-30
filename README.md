@@ -9,3 +9,9 @@ https://github.com/barrrosomarcio/logmanagerBackEnd
 
 #### Login
 ![Login.jpg](./images/Login.jpg)
+
+#### Cadastro
+![Create.jpg](./images/Create.jpg)
+
+#### Login
+![List.jpg](./images/List.jpg)
