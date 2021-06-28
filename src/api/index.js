@@ -1,10 +1,15 @@
 import axios from 'axios';
 import base64 from 'base-64';
-import { getToken } from '../localStorage';
+import { getToken, setToken } from '../localStorage';
+require('dotenv').config();
 
-const CLIENT_ID = 'logmanager';
-const SECRET = '123';
-const endpoint = `http://localhost:3050`;
+const {
+  CLIENT_ID,
+  SECRET,
+  PORT,
+} = process.env;
+
+const endpoint = `http://localhost:${PORT}`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
@@ -23,11 +28,10 @@ const loginAPI = async (email, password) => {
     },
     data,
   };
-  console.log('config', config)
   await axios(config)
     .then(response => {
       if (response.status === 200) {
-        localStorage.setItem('token', JSON.stringify(response.data));
+        setToken(response.data);
         success = true;
       }
     })
