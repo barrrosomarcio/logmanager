@@ -1,10 +1,15 @@
 import axios from 'axios';
 import base64 from 'base-64';
-import { getToken } from '../localStorage';
+import { getToken, setToken } from '../localStorage';
+require('dotenv').config();
 
-const CLIENT_ID = 'logmanager';
-const SECRET = '123';
-const endpoint = `http://localhost:3050`;
+const {
+  REACT_APP_CLIENT_ID,
+  REACT_APP_SECRET,
+  REACT_APP_SERVER_PORT,
+} = process.env;
+
+const endpoint = `http://localhost:${REACT_APP_SERVER_PORT}`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
@@ -13,7 +18,8 @@ const loginAPI = async (email, password) => {
   data.append('username', email);
   data.append('password', password);
   let success = false;
-  const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
+  const hash = base64.encode(`${REACT_APP_CLIENT_ID}:${REACT_APP_SECRET}`);
+  console.log('endpoint', endpoint)
   const config = {
     method: 'POST',
     url: `${endpoint}/oauth/token`,
@@ -23,15 +29,15 @@ const loginAPI = async (email, password) => {
     },
     data,
   };
-  console.log('config', config)
   await axios(config)
     .then(response => {
       if (response.status === 200) {
-        localStorage.setItem('token', JSON.stringify(response.data));
+        setToken(response.data);
         success = true;
       }
     })
     .catch(error => {
+      console.log('errologin', error)
     });
 
   return success;

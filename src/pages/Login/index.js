@@ -4,26 +4,28 @@ import javabugs from '../../img/javabugs.png';
 import { loginAPI } from '../../api';
 import './login.css';
 
+const defaultValues = {
+  email: '',
+  password:'',
+  error: '',
+};
+
 const Login = () => {
   const history = useHistory();
-  const [error, setError] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [data, setData] = useState(defaultValues);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if(name === 'email') {
-      return setEmail(value);
-    }
-    return setPassword(value);
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    return setData({ ...data, [name]: value })
   }
 
   const logMeIn = async () => {
-    const logged = await loginAPI(email, password); 
+    const logged = await loginAPI(data.email, data.password);
+    console.log('response', logged)
     if(logged) {
       return history.push('/list');
     }
-    return setError('Email ou senha nao sao válidos');
+    return setData({ ...data, error: 'Email ou senha nao sao válidos' });
   }
   
   return (
@@ -37,7 +39,7 @@ const Login = () => {
             Email :
             <input 
               name="email"
-              value={ email }
+              value={ data.email }
               onChange={ handleChange }
             />
           </label>
@@ -47,11 +49,11 @@ const Login = () => {
             Password :
             <input
               name="password"
-              value={ password }
+              value={ data.password }
               onChange={ handleChange }
             />
           </label>
-          {(error !== '' && <p>{error}</p>)}
+          {(data.error !== '' && <p>{data.error}</p>)}
         </form>
         <button
             className="loginbtn"
