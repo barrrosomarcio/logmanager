@@ -4,12 +4,12 @@ import { getToken, setToken } from '../localStorage';
 require('dotenv').config();
 
 const {
-  CLIENT_ID,
-  SECRET,
-  PORT,
+  REACT_APP_CLIENT_ID,
+  REACT_APP_SECRET,
+  REACT_APP_SERVER_PORT,
 } = process.env;
 
-const endpoint = `http://localhost:${PORT}`;
+const endpoint = `http://localhost:${REACT_APP_SERVER_PORT}`;
 
 const loginAPI = async (email, password) => {
   const FormData = require('form-data');
@@ -18,7 +18,8 @@ const loginAPI = async (email, password) => {
   data.append('username', email);
   data.append('password', password);
   let success = false;
-  const hash = base64.encode(`${CLIENT_ID}:${SECRET}`);
+  const hash = base64.encode(`${REACT_APP_CLIENT_ID}:${REACT_APP_SECRET}`);
+  console.log('endpoint', endpoint)
   const config = {
     method: 'POST',
     url: `${endpoint}/oauth/token`,
@@ -36,6 +37,7 @@ const loginAPI = async (email, password) => {
       }
     })
     .catch(error => {
+      console.log('errologin', error)
     });
 
   return success;

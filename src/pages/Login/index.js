@@ -20,7 +20,8 @@ const Login = () => {
   }
 
   const logMeIn = async () => {
-    const logged = await loginAPI(data.email, data.password); 
+    const logged = await loginAPI(data.email, data.password);
+    console.log('response', logged)
     if(logged) {
       return history.push('/list');
     }
@@ -52,7 +53,7 @@ const Login = () => {
               onChange={ handleChange }
             />
           </label>
-          {(error !== '' && <p>{error}</p>)}
+          {(data.error !== '' && <p>{data.error}</p>)}
         </form>
         <button
             className="loginbtn"
